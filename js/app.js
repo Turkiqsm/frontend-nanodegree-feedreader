@@ -40,6 +40,7 @@ function init() {
  * This function all supports a callback as the second parameter
  * which will be called after everything has run successfully.
  */
+
  function loadFeed(id, cb) {
      var feedUrl = allFeeds[id].url,
          feedName = allFeeds[id].name;
@@ -50,7 +51,7 @@ function init() {
        data: JSON.stringify({url: feedUrl}),
        contentType:"application/json",
        success: function (result, status){
-
+                var initComplete = false ;
                  var container = $('.feed'),
                      title = $('.header-title'),
                      entries = result.feed.entries,
@@ -68,11 +69,15 @@ function init() {
                  entries.forEach(function(entry) {
                      container.append(entryTemplate(entry));
                  });
-
+           setTimeout(function(){
+               initComplete =true;
                  if (cb) {
                      cb();
                  }
-               },
+               
+               
+           })
+       },
        error: function (result, status, err){
                  //run only the callback without attempting to parse result due to error
                  if (cb) {
@@ -88,6 +93,21 @@ function init() {
  */
 google.setOnLoadCallback(init);
 
+
+
+
+var ithidden= function(){
+    return $('body').hasClass('menu-hidden');
+}
+//var x to know if the elemnt hiddin or not like a flag
+var x=0 ;
+var showhide = function(){
+    if(x=0){
+        return $('body').hasClass('menu-hidden') == false ;
+    }else return $('body').hasClass('menu-hidden') ;
+    
+    
+}
 /* All of this functionality is heavily reliant upon the DOM, so we
  * place our code in the $() function to ensure it doesn't execute
  * until the DOM is ready.
@@ -128,6 +148,12 @@ $(function() {
      * on the body to perform the hiding/showing of our menu.
      */
     menuIcon.on('click', function() {
+       if(ithidden()){
+           x=0;
+       }else x=1
+           
         $('body').toggleClass('menu-hidden');
+        
+        showhide();
     });
 }());
