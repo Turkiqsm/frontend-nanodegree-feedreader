@@ -70,8 +70,8 @@ $(function() {
          */
         it('should the menu element is hidden by default',function(){
             
-            
-            expect(ithidden()).toBe(true);
+            var elem =$('body').hasClass('menu-hidden');
+          expect(elem).toBe(true);
         });
 
          /* TODO: Write a test that ensures the menu changes
@@ -97,46 +97,47 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         
-        beforeEach(function(done) {
+        		beforeEach(function(done) {
             loadFeed(0, function() {
                 done();
             });    
          });
-        
-          it('it should intate Entries',function(done){
-           expect(test.initComplete).toBe(true);
-            done();
-            
-          
-      });
-           
-});
+         
+         it('feed container has atleast 1 entry', function() {
+            var elem = $('.entry').length;
+            expect(elem).toBeGreaterThan(0);
+         });
+	});
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection',function(){
-        var a;
-        var b;
+
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-           beforeEach(function(done){
-               $('.feed').empty();
-                loadFeed(0,function(){
-                a =$('.feed').find("h2").text();
-                done();
+		
+        var a;
+        var b;
+        beforeEach(function(done) {
+            loadFeed(1, function() {
+                a = $('.feed').html();
+                loadFeed(2, function() {
+                    done();
                 });
-           }) ;
-        
-          it('it should load feeds and change content',function(done){
-            b =$('.feed').find("h2").text();
-              expect(a).not.toEqual(b);
-            done();
-            
-          
-      });
-        
-        
-        
-    });
+            });        
+         });
+		
+		afterEach(function() {
+            loadFeed(0);
+        });
+
+		  it('feed content changes', function() {
+            expect(a).toBeDefined();
+            b = $('.feed').html();
+            expect(b).toBeDefined();
+            expect(a).not.toEqual(b);
+         }); 
+		
+	});
     
 }());
