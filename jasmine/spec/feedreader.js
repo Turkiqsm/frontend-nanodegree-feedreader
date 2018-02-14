@@ -94,10 +94,11 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         
-        var test = loadFeed(allFeeds[0].id,allFeeds[0].name)
-           beforeEach(function(done){
-               init();
-           }) 
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });    
+         });
         
           it('it should intate Entries',function(done){
            expect(test.initComplete).toBe(true);
