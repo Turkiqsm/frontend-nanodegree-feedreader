@@ -38,8 +38,8 @@ $(function() {
                 expect(a.url).toBeDefined();
                 expect(a.url.length).not.toBe(0);
                 
-            })
-        })
+            });
+        });
 
 
         /* TODO: Write a test that loops through each feed
@@ -54,8 +54,8 @@ $(function() {
                 expect(a.name).toBeDefined();
                 expect(a.name.length).not.toBe(0);
                 
-            })
-        })
+            });
+        });
         
     });
 
@@ -81,7 +81,10 @@ $(function() {
           */
         it('should hide and show the menu',function(){
             
-            expect(showhide()).toBe(true);
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toEqual(false);
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toEqual(true);
             
         });
     });
@@ -105,7 +108,7 @@ $(function() {
             done();
             
           
-      })
+      });
            
 });
     /* TODO: Write a new test suite named "New Feed Selection" */
