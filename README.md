@@ -15,3 +15,7 @@ feed container has atleast 1 entry.
 
 4-New Feed Selection
 feed content changes.
+
+### How to run this app?
+
+Just open index.html in a browser.
