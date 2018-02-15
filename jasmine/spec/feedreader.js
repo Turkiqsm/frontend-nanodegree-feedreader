@@ -104,8 +104,8 @@ $(function() {
          });
          
          it('feed container has atleast 1 entry', function() {
-            var elem = $('.entry').length;
-            expect(elem).toBeGreaterThan(0);
+        expect($('.feed .entry').length).toBeGreaterThan(0);
+
          });
 	});
     /* TODO: Write a new test suite named "New Feed Selection" */
